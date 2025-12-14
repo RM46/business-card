@@ -1,0 +1,214 @@
+/* --- Reset & Page Layout --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    perspective: 1000px; /* Helper for 3D effects */
+}
+
+/* --- Card Container --- */
+.card {
+    position: relative;
+    width: 600px;
+    height: 350px;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    border-radius: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px;
+    text-align: center;
+    overflow: hidden;
+
+    /* Base Shadow */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+    /* TRANSITION: Essential for smooth hover effects on the card */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer; /* Indicates interactivity */
+}
+
+/* HOVER EFFECT 1: Card Lift */
+.card:hover {
+    transform: translateY(-10px); /* Moves card up */
+    box-shadow: 0 40px 70px -12px rgba(0, 0, 0, 0.6); /* Deeper shadow */
+}
+
+/* --- Background Geometric Shapes --- */
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+    opacity: 0.5;
+    transition: transform 0.6s ease-out; /* Smooth movement for shapes */
+}
+
+.shape-1 {
+    width: 250px;
+    height: 250px;
+    background: #1e293b;
+    top: -80px;
+    left: -80px;
+}
+
+.shape-2 {
+    width: 180px;
+    height: 180px;
+    background: #64748b;
+    bottom: -40px;
+    right: -40px;
+}
+
+.shape-3 {
+    width: 120px;
+    height: 120px;
+    background: #0f172a;
+    bottom: 10%;
+    left: 15%;
+}
+
+/* HOVER EFFECT 2: Parallax Background Movement */
+.card:hover .shape-1 { transform: translate(15px, 15px); }
+.card:hover .shape-2 { transform: translate(-15px, -15px); }
+.card:hover .shape-3 { transform: scale(1.2); }
+
+
+/* --- Content Layers --- */
+.content-top, .content-middle, .content-bottom {
+    z-index: 1;
+    width: 100%;
+}
+.content-middle { pointer-events: none; } /* Allow card hover to work through the photo area */
+
+/* --- Typography --- */
+.name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: color 0.3s ease; /* Transition for hover effect */
+    pointer-events: auto;
+}
+
+/* HOVER EFFECT 3: Name Highlight */
+.name:hover {
+    color: #cbd5e1;
+}
+
+.title {
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* --- Profile Image Styling --- */
+.profile-container {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+    margin: 10px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #94a3b8;
+    cursor: pointer;
+    
+    /* Transition for the border glow */
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+
+    /* Transition for the zoom effect */
+    transition: transform 0.5s ease;
+}
+
+/* HOVER EFFECT 4: Profile Zoom & Glow */
+.profile-container:hover .profile-img {
+    transform: scale(1.15); /* Zoom in 15% */
+}
+
+.profile-container:hover {
+    border-color: rgba(255, 255, 255, 0.6); /* Brighter border */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* Subtle glow */
+}
+
+/* --- Contact Info --- */
+.contact-info p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 4px 0;
+    letter-spacing: 0.8px;
+    opacity: 0.8;
+    transition: all 0.3s ease; /* Smooth transition for hover */
+    cursor: pointer;
+    pointer-events: auto; /* Ensure text is clickable/hoverable */
+}
+
+/* HOVER EFFECT 5: Contact Text Slide & Brighten */
+.contact-info p:hover {
+    opacity: 1;
+    transform: translateX(5px); /* Slide right slightly */
+    color: #bae6fd; /* Light blue tint */
+    text-shadow: 0 0 8px rgba(186, 230, 253, 0.4);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 650px) {
+    .card {
+        width: 90%;
+        height: auto;
+        aspect-ratio: 1.7/1;
+        padding: 25px;
+    }
+    .name { font-size: 1.6rem; }
+    .profile-container { width: 100px; height: 100px; }
+    .contact-info p { font-size: 0.8rem; }
+}
+
+
+/* --- New CSS: Name Zoom Effect --- */
+.name {
+    /* Existing properties... */
+    transition: all 0.3s ease; /* Ensure transition is present for the zoom */
+}
+
+.name:hover {
+    color: #cbd5e1;
+    transform: scale(1.05); /* Zoom in 5% */
+}
+
+/* --- New CSS: Link Styling for Functionality --- */
+.contact-info a {
+    color: inherit; /* Inherit the white color from the parent <p> */
+    text-decoration: none; /* Remove the standard blue underline */
+    display: block; /* Makes the entire <p> area clickable (optional, but good) */
+    
+    /* Inherit transitions from the parent <p> for the hover effect */
+    transition: all 0.3s ease;
+}
+
+/* Ensure the hover effect works on the link and text */
+.contact-info p:hover a {
+    color: #bae6fd; /* Light blue tint on hover */
+}
